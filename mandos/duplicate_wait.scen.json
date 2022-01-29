@@ -1,0 +1,29 @@
+{
+  "name": "duplicate_wait",
+  "steps": [
+    {
+      "step": "externalSteps",
+      "path": "deploy_and_wait.scen.json"
+    },
+    {
+      "step": "scCall",
+      "txId": "5",
+      "tx": {
+        "from": "address:owner",
+        "to": "sc:waiting_room",
+        "function": "wait",
+        "arguments": [],
+        "gasLimit": "100,000,000",
+        "gasPrice": "1"
+      },
+      "expect": {
+        "out": [],
+        "status": "4",
+        "message": "str:This address is already in the wait list",
+        "logs": [],
+        "gas": "*",
+        "refund": "*"
+      }
+    }
+  ]
+}

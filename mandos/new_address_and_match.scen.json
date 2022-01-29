@@ -1,0 +1,103 @@
+{
+  "name": "new user with auto match",
+  "steps": [
+    {
+      "step": "externalSteps",
+      "path": "deploy_and_wait.scen.json"
+    },
+    {
+      "step": "setState",
+      "accounts": {
+        "address:user_one": {
+          "nonce": "0",
+          "balance": "1000000000000000"
+        }
+      }
+    },
+    {
+      "step": "scCall",
+      "txId": "5",
+      "tx": {
+        "from": "address:user_one",
+        "to": "sc:waiting_room",
+        "function": "wait",
+        "arguments": [],
+        "gasLimit": "100,000,000",
+        "gasPrice": "1"
+      },
+      "expect": {
+        "out": [],
+        "status": "",
+        "logs": [],
+        "gas": "*",
+        "refund": "*"
+      }
+    },
+    {
+      "step": "scCall",
+      "txId": "6",
+      "tx": {
+        "from": "address:user_one",
+        "to": "sc:waiting_room",
+        "function": "getMatchesCount",
+        "arguments": [],
+        "gasLimit": "100000000",
+        "gasPrice": "1"
+      },
+      "expect": {
+        "out": [
+          "1"
+        ],
+        "status": "",
+        "logs": [],
+        "gas": "*",
+        "refund": "*"
+      }
+    },
+    {
+      "step": "scCall",
+      "txId": "7",
+      "tx": {
+        "from": "address:user_one",
+        "to": "sc:waiting_room",
+        "function": "getMatchesMap",
+        "arguments": [
+          "address:user_one"
+        ],
+        "gasLimit": "100000000",
+        "gasPrice": "1"
+      },
+      "expect": {
+        "out": [
+          "1"
+        ],
+        "status": "",
+        "logs": [],
+        "gas": "*",
+        "refund": "*"
+      }
+    },
+    {
+      "step": "scCall",
+      "txId": "8",
+      "tx": {
+        "from": "address:user_one",
+        "to": "sc:waiting_room",
+        "function": "getWaitingRoomLength",
+        "arguments": [
+        ],
+        "gasLimit": "100000000",
+        "gasPrice": "1"
+      },
+      "expect": {
+        "out": [
+          "0"
+        ],
+        "status": "",
+        "logs": [],
+        "gas": "*",
+        "refund": "*"
+      }
+    }
+  ]
+}
