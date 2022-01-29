@@ -7,7 +7,9 @@ elrond_wasm::imports!();
 
 #[elrond_wasm::derive::contract]
 pub trait Room {
-    // storage
+    // ***** STORAGE ***** //
+
+    // ***** STORAGE WITH VIEWS  ***** //
     #[view(getMatchesSize)]
     #[storage_mapper("match_size")]
     // THIS IS A CONSTANT, it should never be modified during run time
@@ -30,18 +32,15 @@ pub trait Room {
     fn match_id_to_address_map(&self, match_id: u32) -> SingleValueMapper<Vec<ManagedAddress>>;
 
 
+    // ***** VIEWS  ***** //
     #[view(getWaitingRoomLength)]
     fn waiting_room_length(&self) -> u32 {
         self.waiting_room().len() as u32
     }
 
-    #[init]
-    fn init(&self, match_size: u32) {
-        self.match_size().set(match_size);
-    }
-
+    // ***** ENDPOINTS  ***** //
     #[endpoint]
-    fn wait(&self) -> LinkedListMapper<ManagedAddress>{
+    fn wait(&self) -> LinkedListMapper<ManagedAddress> {
         let caller = self.blockchain().get_caller();
 
         if self.waiting_room().len() != 0 {
@@ -50,10 +49,10 @@ pub trait Room {
 
         self.waiting_room().push_back(caller);
 
-        let match_size:u32 = self.match_size().get();
-        let waiting_room_size:u32 = self.waiting_room().len() as u32;
+        let match_size: u32 = self.match_size().get();
+        let waiting_room_size: u32 = self.waiting_room().len() as u32;
 
-        if waiting_room_size % match_size == 0  {
+        if waiting_room_size % match_size == 0 {
             self.match_users()
         }
 
@@ -79,11 +78,16 @@ pub trait Room {
         }
     }
 
-    // private functions
+    #[init]
+    fn init(&self, match_size: u32) {
+        self.match_size().set(match_size);
+    }
+
+    // ***** PRIVATE  ***** //
 
     fn match_users(&self) {
-        let match_size:u32 = self.match_size().get();
-        let waiting_room_size:u32 = self.waiting_room().len() as u32;
+        let match_size: u32 = self.match_size().get();
+        let waiting_room_size: u32 = self.waiting_room().len() as u32;
 
         require!(waiting_room_size % match_size == 0, "Match size does not support the current number of people waiting");
 
@@ -91,10 +95,10 @@ pub trait Room {
 
         let new_match_id = self.matches_count().get();
 
-        let mut users_list:Vec<ManagedAddress> = Vec::new();
+        let mut users_list: Vec<ManagedAddress> = Vec::new();
 
         for _ in 0..match_size {
-            let user =  self.waiting_room().pop_front().unwrap().get_value_cloned();
+            let user = self.waiting_room().pop_front().unwrap().get_value_cloned();
             self.address_to_match_id_map(user.clone()).set(new_match_id);
             users_list.push(user);
         }
