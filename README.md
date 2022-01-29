@@ -1,29 +1,13 @@
-# Interaction
+# Rooms
 
-## On devnet
+A way to match users on the Elrond Blockchain.
 
-Deploy & interact with contract:
+This is still a prototype.
 
-```
-python3 ./interaction/playground.py --pem=./testnet/wallets/users/alice.pem --proxy=http://localhost:7950
-```
+## How it works
 
-Interact with existing contract:
+Users call the public `wait` method.
 
-```
-python3 ./interaction/playground.py --pem=./testnet/wallets/users/alice.pem --proxy=http://localhost:7950 --contract=erd1...
-```
+They will enter a list of waiting users. (which is a linked list, specifically a elrond-rust-wasm LinkedListMapper).
 
-## On testnet
-
-Deploy & interact with contract:
-
-```
-python3 ./interaction/playground.py --pem=my.pem --proxy=https://testnet-gateway.elrond.com
-```
-
-Interact with existing contract:
-
-```
-python3 ./interaction/playground.py --pem=my.pem --proxy=https://testnet-gateway.elrond.com --contract=erd1...
-```
+Once the length of the list reaches the `match_size` which is set on `init` it will match the first two users in the list and give them a match id. There match id is stored in `matches_map` which can be viewed with the method `getMatchesMap`. There match id will be tied to their elrond address so to call the `getMatchesMap` they must provide their address.
