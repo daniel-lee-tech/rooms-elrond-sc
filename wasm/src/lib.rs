@@ -7,11 +7,13 @@
 elrond_wasm_node::wasm_endpoints! {
     rooms
     (
+        getAddressToMatchIdMap
+        getMatchIdToAddressMap
         getMatchesCount
-        getMatchesMap
         getMatchesSize
         getWaitingRoom
         getWaitingRoomLength
+        leaveMatch
         wait
     )
 }

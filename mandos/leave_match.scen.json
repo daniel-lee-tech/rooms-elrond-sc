@@ -1,62 +1,13 @@
 {
-  "name": "new user with auto match",
+  "name": "leaving match",
   "steps": [
     {
       "step": "externalSteps",
-      "path": "deploy_and_wait.scen.json"
-    },
-    {
-      "step": "setState",
-      "accounts": {
-        "address:user_one": {
-          "nonce": "0",
-          "balance": "1000000000000000"
-        }
-      }
+      "path": "new_address_and_match.scen.json"
     },
     {
       "step": "scCall",
-      "txId": "5",
-      "tx": {
-        "from": "address:user_one",
-        "to": "sc:rooms",
-        "function": "wait",
-        "arguments": [],
-        "gasLimit": "100,000,000",
-        "gasPrice": "1"
-      },
-      "expect": {
-        "out": [],
-        "status": "",
-        "logs": [],
-        "gas": "*",
-        "refund": "*"
-      }
-    },
-    {
-      "step": "scCall",
-      "txId": "6",
-      "tx": {
-        "from": "address:user_one",
-        "to": "sc:rooms",
-        "function": "getMatchesCount",
-        "arguments": [],
-        "gasLimit": "100000000",
-        "gasPrice": "1"
-      },
-      "expect": {
-        "out": [
-          "1"
-        ],
-        "status": "",
-        "logs": [],
-        "gas": "*",
-        "refund": "*"
-      }
-    },
-    {
-      "step": "scCall",
-      "txId": "7",
+      "txId": "9",
       "tx": {
         "from": "address:user_one",
         "to": "sc:rooms",
@@ -79,12 +30,78 @@
     },
     {
       "step": "scCall",
-      "txId": "8",
+      "txId": "10",
+      "tx": {
+        "from": "address:owner",
+        "to": "sc:rooms",
+        "function": "getAddressToMatchIdMap",
+        "arguments": [
+          "address:owner"
+        ],
+        "gasLimit": "100000000",
+        "gasPrice": "1"
+      },
+      "expect": {
+        "out": [
+          "1"
+        ],
+        "status": "",
+        "logs": [],
+        "gas": "*",
+        "refund": "*"
+      }
+    },
+    {
+      "step": "scCall",
+      "txId": "11",
+      "tx": {
+        "from": "address:owner",
+        "to": "sc:rooms",
+        "function": "leaveMatch",
+        "arguments": [],
+        "gasLimit": "100000000",
+        "gasPrice": "1"
+      },
+      "expect": {
+        "out": [],
+        "status": "",
+        "logs": [],
+        "gas": "*",
+        "refund": "*"
+      }
+    },
+    {
+      "step": "scCall",
+      "txId": "12",
+      "tx": {
+        "from": "address:owner",
+        "to": "sc:rooms",
+        "function": "getAddressToMatchIdMap",
+        "arguments": [
+          "address:owner"
+        ],
+        "gasLimit": "100000000",
+        "gasPrice": "1"
+      },
+      "expect": {
+        "out": [
+          "0"
+        ],
+        "status": "",
+        "logs": [],
+        "gas": "*",
+        "refund": "*"
+      }
+    },
+    {
+      "step": "scCall",
+      "txId": "13",
       "tx": {
         "from": "address:user_one",
         "to": "sc:rooms",
-        "function": "getWaitingRoomLength",
+        "function": "getAddressToMatchIdMap",
         "arguments": [
+          "address:user_one"
         ],
         "gasLimit": "100000000",
         "gasPrice": "1"

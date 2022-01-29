@@ -10,7 +10,7 @@
       "txId": "5",
       "tx": {
         "from": "address:owner",
-        "to": "sc:waiting_room",
+        "to": "sc:rooms",
         "function": "wait",
         "arguments": [],
         "gasLimit": "100,000,000",

@@ -98,6 +98,29 @@
         "gas": "*",
         "refund": "*"
       }
+    },
+    {
+      "step": "scCall",
+      "txId": "9",
+      "tx": {
+        "from": "address:user_one",
+        "to": "sc:rooms",
+        "function": "getMatchIdToAddressMap",
+        "arguments": [
+          "1"
+        ],
+        "gasLimit": "100000000",
+        "gasPrice": "1"
+      },
+      "expect": {
+        "out": [
+          "u64:0|address:owner|address:user_one"
+        ],
+        "status": "",
+        "logs": [],
+        "gas": "*",
+        "refund": "*"
+      }
     }
   ]
 }

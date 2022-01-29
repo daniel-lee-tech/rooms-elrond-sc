@@ -15,7 +15,7 @@
         {
           "creatorAddress": "address:owner",
           "creatorNonce": "1",
-          "newAddress": "sc:waiting_room"
+          "newAddress": "sc:rooms"
         }
       ]
     },
@@ -43,7 +43,7 @@
       "step": "scQuery",
       "txId": "2",
       "tx": {
-        "to": "sc:waiting_room",
+        "to": "sc:rooms",
         "function": "getWaitingRoom",
         "arguments": []
       },
@@ -59,7 +59,7 @@
       "txId": "3",
       "tx": {
         "from": "address:owner",
-        "to": "sc:waiting_room",
+        "to": "sc:rooms",
         "function": "wait",
         "arguments": [],
         "gasLimit": "100,000,000",
@@ -80,7 +80,7 @@
       "txId": "4",
       "tx": {
         "from": "address:owner",
-        "to": "sc:waiting_room",
+        "to": "sc:rooms",
         "function": "getWaitingRoomLength",
         "arguments": [],
         "gasLimit": "100,000,000",
